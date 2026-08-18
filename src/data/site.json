@@ -1,0 +1,12 @@
+{
+  "whatsapp": "5493442646597",
+  "whatsappText": "Hola! Quiero solicitar un presupuesto para un evento.",
+  "phoneDisplay": "+54 9 3442 646597",
+  "email": "pro-eventconcepcion@hotmail.com",
+  "stats": [
+    { "num": "+300", "label": "Eventos" },
+    { "num": "10", "label": "Años de experiencia" },
+    { "num": "100%", "label": "Equipamiento propio" },
+    { "num": "6", "label": "Tipos de evento" }
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "title": "Pantallas LED",
+  "label": "Pantallas LED",
+  "slug": "pantallas-led",
+  "order": 6,
+  "cover": "/assets/portfolio/pantallas-led/cover.webp",
+  "gallery": [
+    "/assets/portfolio/pantallas-led/foto-1.webp"
+  ]
+}

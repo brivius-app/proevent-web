@@ -1,0 +1,13 @@
+{
+  "title": "Evento privado",
+  "label": "Privados",
+  "slug": "privados",
+  "order": 5,
+  "cover": "/assets/portfolio/privados/cover.webp",
+  "gallery": [
+    "/assets/portfolio/privados/foto-1.webp",
+    "/assets/portfolio/privados/foto-2.webp",
+    "/assets/portfolio/privados/foto-3.webp",
+    "/assets/portfolio/privados/foto-4.webp"
+  ]
+}

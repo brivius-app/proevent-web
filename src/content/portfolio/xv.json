@@ -1,0 +1,19 @@
+{
+  "title": "Fiesta de 15",
+  "label": "XV",
+  "slug": "xv",
+  "order": 4,
+  "cover": "/assets/portfolio/xv/cover.webp",
+  "gallery": [
+    "/assets/portfolio/xv/foto-1.webp",
+    "/assets/portfolio/xv/foto-2.webp",
+    "/assets/portfolio/xv/foto-3.webp",
+    "/assets/portfolio/xv/foto-4.webp",
+    "/assets/portfolio/xv/foto-5.webp",
+    "/assets/portfolio/xv/foto-6.webp",
+    "/assets/portfolio/xv/foto-7.webp",
+    "/assets/portfolio/xv/foto-8.webp",
+    "/assets/portfolio/xv/foto-9.webp",
+    "/assets/portfolio/xv/foto-10.webp"
+  ]
+}

@@ -1,0 +1,64 @@
+backend:
+  name: git-gateway
+  branch: main
+
+# Flujo editorial: los cambios del cliente se guardan como borrador / PR
+# antes de publicarse en producción.
+publish_mode: editorial_workflow
+
+# Idioma del panel
+locale: es
+
+# Las imágenes que suba el cliente se guardan acá y se sirven desde /assets/portfolio
+media_folder: "public/assets/portfolio"
+public_folder: "/assets/portfolio"
+
+collections:
+  # ─────────────────────────────────────────────────────────────
+  # PORTFOLIO: una entrada por categoría
+  # ─────────────────────────────────────────────────────────────
+  - name: "portfolio"
+    label: "Categorías del portfolio"
+    label_singular: "Categoría"
+    identifier_field: "label"
+    folder: "src/content/portfolio"
+    extension: "json"
+    format: "json"
+    create: true
+    slug: "{{fields.slug}}"
+    summary: "{{label}} — {{gallery.length}} fotos"
+    fields:
+      - { label: "Nombre / Título de la tarjeta", name: "title", widget: "string", hint: "Ej: Casamiento, Show en vivo…" }
+      - { label: "Etiqueta de la categoría", name: "label", widget: "string", hint: "Texto que se ve en el filtro y arriba de la tarjeta. Ej: Casamientos" }
+      - { label: "Identificador (slug)", name: "slug", widget: "string", hint: "Sin espacios ni acentos, en minúsculas. Ej: casamientos. NO cambiar en categorías existentes." }
+      - { label: "Orden", name: "order", widget: "number", value_type: "int", default: 0, hint: "Número para ordenar las categorías (1, 2, 3…)" }
+      - { label: "Imagen de portada (vertical 4:5)", name: "cover", widget: "image", hint: "Imagen que se muestra en la tarjeta de la categoría." }
+      - label: "Galería de fotos"
+        name: "gallery"
+        widget: "list"
+        label_singular: "Foto"
+        summary: "{{fields.image}}"
+        field: { label: "Foto", name: "image", widget: "image" }
+
+  # ─────────────────────────────────────────────────────────────
+  # CONFIGURACIÓN DEL SITIO (singleton)
+  # ─────────────────────────────────────────────────────────────
+  - name: "config"
+    label: "Configuración del sitio"
+    files:
+      - name: "site"
+        label: "Datos generales"
+        file: "src/data/site.json"
+        fields:
+          - { label: "Número de WhatsApp", name: "whatsapp", widget: "string", hint: "Solo números con código de país, sin + ni espacios. Ej: 5493442646597" }
+          - { label: "Mensaje precargado de WhatsApp", name: "whatsappText", widget: "string" }
+          - { label: "Teléfono (como se muestra en el footer)", name: "phoneDisplay", widget: "string", hint: "Ej: +54 9 3442 646597" }
+          - { label: "Email de contacto", name: "email", widget: "string" }
+          - label: "Estadísticas (sección Nosotros)"
+            name: "stats"
+            widget: "list"
+            max: 4
+            min: 4
+            fields:
+              - { label: "Número", name: "num", widget: "string", hint: "Ej: +300, 10, 100%" }
+              - { label: "Etiqueta", name: "label", widget: "string", hint: "Ej: Eventos, Años de experiencia" }

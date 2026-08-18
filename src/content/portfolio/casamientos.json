@@ -1,0 +1,18 @@
+{
+  "title": "Casamiento",
+  "label": "Casamientos",
+  "slug": "casamientos",
+  "order": 1,
+  "cover": "/assets/portfolio/casamientos/cover.webp",
+  "gallery": [
+    "/assets/portfolio/casamientos/foto-1.webp",
+    "/assets/portfolio/casamientos/foto-2.webp",
+    "/assets/portfolio/casamientos/foto-3.webp",
+    "/assets/portfolio/casamientos/foto-4.webp",
+    "/assets/portfolio/casamientos/foto-5.webp",
+    "/assets/portfolio/casamientos/foto-6.webp",
+    "/assets/portfolio/casamientos/foto-7.webp",
+    "/assets/portfolio/casamientos/foto-8.webp",
+    "/assets/portfolio/casamientos/foto-9.webp"
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "title": "Show en vivo",
+  "label": "En vivo",
+  "slug": "envivo",
+  "order": 3,
+  "cover": "/assets/portfolio/envivo/cover.webp",
+  "gallery": [
+    "/assets/portfolio/envivo/foto-1.webp",
+    "/assets/portfolio/envivo/foto-2.webp",
+    "/assets/portfolio/envivo/foto-3.webp"
+  ]
+}

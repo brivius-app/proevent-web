@@ -1,10 +1,11 @@
 ---
+import { waUrl, mailto } from '../lib/site';
 ---
 <section class="cta" id="contacto">
   <h2 class="reveal">Tu próximo evento<br><span>lo hacemos juntos</span></h2>
   <p class="reveal">Contanos qué tenés en mente y te armamos una propuesta a medida.</p>
   <div class="reveal" style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap">
-    <a href="https://wa.me/5493442646597?text=Hola%21%20Quiero%20solicitar%20un%20presupuesto%20para%20un%20evento." class="btn btn-primary">WhatsApp</a>
-    <a href="mailto:pro-eventconcepcion@hotmail.com" class="btn btn-ghost">Enviar email</a>
+    <a href={waUrl} class="btn btn-primary">WhatsApp</a>
+    <a href={mailto} class="btn btn-ghost">Enviar email</a>
   </div>
 </section>

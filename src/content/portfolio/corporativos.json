@@ -1,0 +1,13 @@
+{
+  "title": "Evento corporativo",
+  "label": "Corporativos",
+  "slug": "corporativos",
+  "order": 2,
+  "cover": "/assets/portfolio/corporativos/cover.webp",
+  "gallery": [
+    "/assets/portfolio/corporativos/foto-1.webp",
+    "/assets/portfolio/corporativos/foto-2.webp",
+    "/assets/portfolio/corporativos/foto-3.webp",
+    "/assets/portfolio/corporativos/foto-4.webp"
+  ]
+}

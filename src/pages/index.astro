@@ -7,6 +7,7 @@ import Portfolio from '../components/Portfolio.astro';
 import Stats from '../components/Stats.astro';
 import CTA from '../components/CTA.astro';
 import Footer from '../components/Footer.astro';
+import { waUrl } from '../lib/site';
 ---
 
 <BaseLayout>
@@ -18,5 +19,5 @@ import Footer from '../components/Footer.astro';
   <CTA />
   <Footer />
 
-  <a href="https://wa.me/5493442646597?text=Hola%21%20Quiero%20solicitar%20un%20presupuesto%20para%20un%20evento." class="wa" aria-label="WhatsApp">✆</a>
+  <a href={waUrl} class="wa" aria-label="WhatsApp">✆</a>
 </BaseLayout>

@@ -1,4 +1,22 @@
 ---
+import { getCollection } from 'astro:content';
+
+const entries = await getCollection('portfolio');
+
+const cats = entries
+  .sort((a, b) => (a.data.order ?? 0) - (b.data.order ?? 0))
+  .map((e) => {
+    const gallery = e.data.gallery ?? [];
+    return {
+      id: e.data.slug ?? e.id,
+      label: e.data.label,
+      title: e.data.title,
+      cover: e.data.cover,
+      count: gallery.length,
+      // La galería del lightbox muestra la portada primero + las fotos.
+      images: [e.data.cover, ...gallery],
+    };
+  });
 ---
 <section id="trabajos">
   <div class="sec-head reveal">
@@ -8,15 +26,21 @@
   </div>
   <div class="filters" id="filters">
     <button class="filter active" data-f="all">Todos</button>
-    <button class="filter" data-f="casamientos">Casamientos</button>
-    <button class="filter" data-f="corporativos">Corporativos</button>
-    <button class="filter" data-f="envivo">En vivo</button>
-    <button class="filter" data-f="xv">XV</button>
-    <button class="filter" data-f="privados">Privados</button>
-    <button class="filter" data-f="pantallas-led">Pantallas LED</button>
+    {cats.map((c) => <button class="filter" data-f={c.id}>{c.label}</button>)}
   </div>
-  <div class="grid" id="grid"></div>
+  <div class="grid" id="grid">
+    {cats.map((c) => (
+      <div class="card reveal" data-cat={c.id}>
+        <img src={c.cover} alt={c.label} loading="lazy" />
+        <div class="grad"></div><div class="plus">↗</div>
+        <div class="meta"><div class="cat">{c.label}</div><h4>{c.title}</h4>
+        <span class="count">📷 {c.count} {c.count === 1 ? 'foto' : 'fotos'}</span></div>
+      </div>
+    ))}
+  </div>
 </section>
+
+<script type="application/json" id="portfolio-data" set:html={JSON.stringify(cats)}></script>
 
 <div class="lb" id="lb">
   <div class="lb-top">
@@ -34,25 +58,12 @@
 </div>
 
 <script>
-  const CATS=[
-    {id:"casamientos",label:"Casamientos",title:"Casamiento",cover:"/assets/portfolio/casamientos/cover.webp",count:9,dir:"/assets/portfolio/casamientos",ext:"webp"},
-    {id:"corporativos",label:"Corporativos",title:"Evento corporativo",cover:"/assets/portfolio/corporativos/cover.webp",count:4,dir:"/assets/portfolio/corporativos",ext:"webp"},
-    {id:"envivo",label:"En vivo",title:"Show en vivo",cover:"/assets/portfolio/envivo/cover.webp",count:3,dir:"/assets/portfolio/envivo",ext:"webp"},
-    {id:"xv",label:"XV",title:"Fiesta de 15",cover:"/assets/portfolio/xv/cover.webp",count:10,dir:"/assets/portfolio/xv",ext:"webp"},
-    {id:"privados",label:"Privados",title:"Evento privado",cover:"/assets/portfolio/privados/cover.webp",count:4,dir:"/assets/portfolio/privados",ext:"webp"},
-    {id:"pantallas-led",label:"Pantallas LED",title:"Pantallas LED",cover:"/assets/portfolio/pantallas-led/cover.webp",count:1,dir:"/assets/portfolio/pantallas-led",ext:"webp"}
-  ];
+  const CATS = JSON.parse(document.getElementById('portfolio-data').textContent);
 
-  const grid=document.getElementById('grid');
-  CATS.forEach(c=>{
-    const card=document.createElement('div');
-    card.className='card reveal';card.dataset.cat=c.id;
-    card.innerHTML=`<img src="${c.cover}" alt="${c.label}" loading="lazy">
-      <div class="grad"></div><div class="plus">↗</div>
-      <div class="meta"><div class="cat">${c.label}</div><h4>${c.title}</h4>
-      <span class="count">📷 ${c.count} ${c.count===1?'foto':'fotos'}</span></div>`;
-    card.onclick=()=>openGallery(c);
-    grid.appendChild(card);
+  // Las cards se renderizan en el servidor; acá enganchamos la apertura de galería.
+  document.querySelectorAll('#grid .card').forEach((card) => {
+    const c = CATS.find((x) => x.id === card.dataset.cat);
+    if (c) card.onclick = () => openGallery(c);
   });
 
   document.querySelectorAll('.filter').forEach(f=>f.onclick=()=>{
@@ -67,10 +78,7 @@
   let currentImgs=[];
   function openGallery(c){
     lbTitle.innerHTML=`${c.label} <span>/ galería</span>`;
-    lbGrid.innerHTML='';currentImgs=[];
-    // portada primero
-    currentImgs.push(c.cover);
-    for(let i=1;i<=c.count;i++){currentImgs.push(`${c.dir}/foto-${i}.${c.ext}`);}
+    lbGrid.innerHTML='';currentImgs=c.images.slice();
     currentImgs.forEach((src,idx)=>{
       const im=document.createElement('img');im.src=src;im.loading='lazy';im.alt=`${c.label} ${idx+1}`;
       im.onclick=()=>openZoom(idx);
