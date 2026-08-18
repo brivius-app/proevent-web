@@ -1,7 +1,16 @@
 ---
 ---
 <section class="hero" style="padding:0">
-  <video autoplay muted loop playsinline poster="/assets/video/hero-poster.webp">
+  <video
+    id="hero-video"
+    autoplay
+    muted
+    loop
+    playsinline
+    webkit-playsinline
+    preload="auto"
+    poster="/assets/video/hero-poster.webp"
+  >
     <source src="/assets/video/hero.mp4" type="video/mp4">
   </video>
   <div class="overlay"></div>
@@ -17,3 +26,37 @@
   </div>
   <div class="scroll-hint"><div class="line"></div>Scroll</div>
 </section>
+
+<script>
+  // Autoplay silencioso en iOS Safari: iOS solo permite autoplay inline si el
+  // video está muteado y con playsinline. Reforzamos el "muted" por JS (algunos
+  // navegadores lo ignoran como atributo) y disparamos play() con try/catch.
+  const heroVideo = document.getElementById('hero-video') as HTMLVideoElement | null;
+  if (heroVideo) {
+    heroVideo.muted = true;
+    heroVideo.defaultMuted = true;
+    heroVideo.setAttribute('muted', '');
+    heroVideo.playsInline = true;
+
+    const tryPlay = () => {
+      const p = heroVideo.play();
+      if (p && typeof p.catch === 'function') {
+        // Si iOS bloquea el primer intento, reintentamos cuando haya datos
+        // o ante la primera interacción del usuario.
+        p.catch(() => {});
+      }
+    };
+
+    tryPlay();
+    heroVideo.addEventListener('loadeddata', tryPlay, { once: true });
+    heroVideo.addEventListener('canplay', tryPlay, { once: true });
+    // Último recurso: primer toque/scroll del usuario reanuda la reproducción.
+    const onFirstInteraction = () => {
+      tryPlay();
+      document.removeEventListener('touchstart', onFirstInteraction);
+      document.removeEventListener('click', onFirstInteraction);
+    };
+    document.addEventListener('touchstart', onFirstInteraction, { once: true, passive: true });
+    document.addEventListener('click', onFirstInteraction, { once: true });
+  }
+</script>
