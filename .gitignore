@@ -21,3 +21,9 @@ pnpm-debug.log*
 
 # jetbrains setting folder
 .idea/
+
+# claude local config
+.claude/
+
+# source assets (duplicado de public/assets)
+proevent-assets/
