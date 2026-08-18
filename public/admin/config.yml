@@ -22,7 +22,7 @@ auth:
   last_name_claim: last_name
   avatar_url_claim: avatar_url
 
-logo_url: https://decapbridge.com/decapcms-with-bridge.svg
+logo_url: https://rad-madeleine-60c0d6.netlify.app/assets/logos/logo-blanco.png
 site_url: https://rad-madeleine-60c0d6.netlify.app
 
 # Flujo editorial: los cambios del cliente se guardan como borrador / PR

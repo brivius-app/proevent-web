@@ -1,0 +1,104 @@
+/* ============================================================
+   PROevent — Branding del panel de Decap CMS (chrome / login).
+
+   NOTA: Decap CMS no expone una API oficial para tematizar el
+   "chrome" del panel. Estos overrides apuntan a clases internas
+   que PODRÍAN cambiar en futuras versiones. Las partes 100%
+   soportadas (logo, idioma y previews) van por config.yml y
+   admin-config.js. Si una versión nueva de Decap rompe algún
+   selector de acá, el panel sigue funcionando: solo se pierde
+   parte del estilo visual.
+   ============================================================ */
+
+:root {
+  --pe-orange: #ff6a00;
+  --pe-orange-soft: #ff8a33;
+  --pe-ink: #0a0a0d;
+  --pe-ink-2: #121218;
+  --pe-ink-3: #1a1a22;
+  --pe-line: rgba(255, 255, 255, 0.08);
+  --pe-txt: #ececf0;
+  --pe-muted: #9a9aa6;
+}
+
+/* ---- Tipografía general del panel (Sora) ---- */
+#nc-root,
+#nc-root input,
+#nc-root textarea,
+#nc-root button,
+#nc-root select,
+#nc-root h1,
+#nc-root h2,
+#nc-root h3,
+#nc-root h4,
+#nc-root p,
+#nc-root a,
+#nc-root label {
+  font-family: 'Sora', system-ui, -apple-system, 'Segoe UI', sans-serif !important;
+}
+
+/* ---- Pantalla de login: fondo oscuro de marca ---- */
+[class*='Login'] {
+  background-color: var(--pe-ink) !important;
+  background-image: radial-gradient(
+    circle at 50% 0%,
+    rgba(255, 106, 0, 0.14),
+    transparent 60%
+  ) !important;
+  color: var(--pe-txt) !important;
+}
+
+/* Logo del login (logo-blanco.png) más grande y con sombra */
+[class*='Login'] img {
+  max-width: 220px;
+  height: auto;
+  margin-bottom: 8px;
+  filter: drop-shadow(0 6px 24px rgba(0, 0, 0, 0.6));
+}
+
+/* Botón de login -> naranja de la marca */
+[class*='Login'] button,
+button[class*='Login'] {
+  background-color: var(--pe-orange) !important;
+  color: var(--pe-ink) !important;
+  border: none !important;
+  border-radius: 40px !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.3px !important;
+  box-shadow: 0 10px 40px -10px rgba(255, 106, 0, 0.6) !important;
+  transition: transform 0.2s, box-shadow 0.2s !important;
+}
+[class*='Login'] button:hover,
+button[class*='Login']:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 16px 50px -8px rgba(255, 106, 0, 0.8) !important;
+}
+
+/* ---- Barra superior del panel ---- */
+[class*='AppHeader'] {
+  background-color: var(--pe-ink-2) !important;
+  border-bottom: 1px solid var(--pe-line) !important;
+}
+
+/* Enlace de navegación activo en naranja */
+[class*='AppHeaderNavLink'][class*='-active'],
+[class*='AppHeaderNavLink']:hover {
+  color: var(--pe-orange) !important;
+}
+
+/* Botón primario "Publicar / Guardar" en naranja de marca */
+[class*='EditorToolbar'] [class*='ToolbarButton'][class*='primary'],
+[class*='PublishButton'],
+button[class*='Primary'] {
+  background-color: var(--pe-orange) !important;
+  color: var(--pe-ink) !important;
+  border-radius: 40px !important;
+}
+
+/* ---- Tarjetas de colecciones más redondeadas ---- */
+[class*='ListCard'],
+[class*='Card-'],
+[class*='CollectionCard'] {
+  border-radius: 14px !important;
+  overflow: hidden;
+}
