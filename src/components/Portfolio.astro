@@ -1,0 +1,100 @@
+---
+---
+<section id="trabajos">
+  <div class="sec-head reveal">
+    <div class="sec-tag">Portfolio</div>
+    <h2>Nuestros trabajos</h2>
+    <p>Elegí una categoría y hacé click para ver la galería completa de cada tipo de evento.</p>
+  </div>
+  <div class="filters" id="filters">
+    <button class="filter active" data-f="all">Todos</button>
+    <button class="filter" data-f="casamientos">Casamientos</button>
+    <button class="filter" data-f="corporativos">Corporativos</button>
+    <button class="filter" data-f="envivo">En vivo</button>
+    <button class="filter" data-f="xv">XV</button>
+    <button class="filter" data-f="privados">Privados</button>
+    <button class="filter" data-f="pantallas-led">Pantallas LED</button>
+  </div>
+  <div class="grid" id="grid"></div>
+</section>
+
+<div class="lb" id="lb">
+  <div class="lb-top">
+    <div class="lb-title" id="lb-title"></div>
+    <button class="lb-close" id="lb-close" aria-label="Cerrar">✕</button>
+  </div>
+  <div class="lb-body"><div class="lb-grid" id="lb-grid"></div></div>
+</div>
+
+<div class="zoom" id="zoom">
+  <button class="zclose" id="z-close" aria-label="Cerrar">✕</button>
+  <button class="znav zprev" id="z-prev" aria-label="Anterior">‹</button>
+  <img id="z-img" src="" alt="">
+  <button class="znav znext" id="z-next" aria-label="Siguiente">›</button>
+</div>
+
+<script>
+  const CATS=[
+    {id:"casamientos",label:"Casamientos",title:"Casamiento",cover:"/assets/portfolio/casamientos/cover.webp",count:9,dir:"/assets/portfolio/casamientos",ext:"webp"},
+    {id:"corporativos",label:"Corporativos",title:"Evento corporativo",cover:"/assets/portfolio/corporativos/cover.webp",count:4,dir:"/assets/portfolio/corporativos",ext:"webp"},
+    {id:"envivo",label:"En vivo",title:"Show en vivo",cover:"/assets/portfolio/envivo/cover.webp",count:3,dir:"/assets/portfolio/envivo",ext:"webp"},
+    {id:"xv",label:"XV",title:"Fiesta de 15",cover:"/assets/portfolio/xv/cover.webp",count:10,dir:"/assets/portfolio/xv",ext:"webp"},
+    {id:"privados",label:"Privados",title:"Evento privado",cover:"/assets/portfolio/privados/cover.webp",count:4,dir:"/assets/portfolio/privados",ext:"webp"},
+    {id:"pantallas-led",label:"Pantallas LED",title:"Pantallas LED",cover:"/assets/portfolio/pantallas-led/cover.webp",count:1,dir:"/assets/portfolio/pantallas-led",ext:"webp"}
+  ];
+
+  const grid=document.getElementById('grid');
+  CATS.forEach(c=>{
+    const card=document.createElement('div');
+    card.className='card reveal';card.dataset.cat=c.id;
+    card.innerHTML=`<img src="${c.cover}" alt="${c.label}" loading="lazy">
+      <div class="grad"></div><div class="plus">↗</div>
+      <div class="meta"><div class="cat">${c.label}</div><h4>${c.title}</h4>
+      <span class="count">📷 ${c.count} ${c.count===1?'foto':'fotos'}</span></div>`;
+    card.onclick=()=>openGallery(c);
+    grid.appendChild(card);
+  });
+
+  document.querySelectorAll('.filter').forEach(f=>f.onclick=()=>{
+    document.querySelectorAll('.filter').forEach(x=>x.classList.remove('active'));
+    f.classList.add('active');const v=f.dataset.f;
+    document.querySelectorAll('#grid .card').forEach(c=>{
+      c.style.display=(v==='all'||c.dataset.cat===v)?'':'none';
+    });
+  });
+
+  const lb=document.getElementById('lb'),lbGrid=document.getElementById('lb-grid'),lbTitle=document.getElementById('lb-title');
+  let currentImgs=[];
+  function openGallery(c){
+    lbTitle.innerHTML=`${c.label} <span>/ galería</span>`;
+    lbGrid.innerHTML='';currentImgs=[];
+    // portada primero
+    currentImgs.push(c.cover);
+    for(let i=1;i<=c.count;i++){currentImgs.push(`${c.dir}/foto-${i}.${c.ext}`);}
+    currentImgs.forEach((src,idx)=>{
+      const im=document.createElement('img');im.src=src;im.loading='lazy';im.alt=`${c.label} ${idx+1}`;
+      im.onclick=()=>openZoom(idx);
+      lbGrid.appendChild(im);
+    });
+    lb.classList.add('open');document.body.style.overflow='hidden';
+  }
+  document.getElementById('lb-close').onclick=()=>{lb.classList.remove('open');document.body.style.overflow=''};
+  lb.onclick=e=>{if(e.target===lb){lb.classList.remove('open');document.body.style.overflow=''}};
+
+  const zoom=document.getElementById('zoom'),zImg=document.getElementById('z-img');let zIdx=0;
+  function openZoom(i){zIdx=i;zImg.src=currentImgs[zIdx];zoom.classList.add('open')}
+  document.getElementById('z-close').onclick=()=>zoom.classList.remove('open');
+  document.getElementById('z-next').onclick=e=>{e.stopPropagation();zIdx=(zIdx+1)%currentImgs.length;zImg.src=currentImgs[zIdx]};
+  document.getElementById('z-prev').onclick=e=>{e.stopPropagation();zIdx=(zIdx-1+currentImgs.length)%currentImgs.length;zImg.src=currentImgs[zIdx]};
+  zoom.onclick=e=>{if(e.target===zoom)zoom.classList.remove('open')};
+  document.addEventListener('keydown',e=>{
+    if(zoom.classList.contains('open')){
+      if(e.key==='Escape')zoom.classList.remove('open');
+      if(e.key==='ArrowRight')document.getElementById('z-next').click();
+      if(e.key==='ArrowLeft')document.getElementById('z-prev').click();
+    }else if(lb.classList.contains('open')&&e.key==='Escape'){lb.classList.remove('open');document.body.style.overflow=''}
+  });
+
+  const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.12});
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+</script>

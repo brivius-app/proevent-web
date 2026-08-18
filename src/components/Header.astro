@@ -1,0 +1,21 @@
+---
+---
+<header id="hdr">
+  <img src="/assets/logos/logo-blanco.png" alt="PROevent" class="logo">
+  <button class="burger" id="burger" aria-label="Menú">☰</button>
+  <nav id="nav">
+    <a href="#servicios">Servicios</a>
+    <a href="#trabajos">Trabajos</a>
+    <a href="#nosotros">Nosotros</a>
+    <a href="#contacto">Contacto</a>
+    <a href="#contacto" class="nav-cta">Pedí presupuesto</a>
+  </nav>
+</header>
+
+<script>
+  const hdr = document.getElementById('hdr');
+  addEventListener('scroll', () => hdr.classList.toggle('scrolled', scrollY > 40));
+  const burger = document.getElementById('burger'), nav = document.getElementById('nav');
+  burger.onclick = () => { nav.classList.toggle('open'); burger.textContent = nav.classList.contains('open') ? '✕' : '☰'; };
+  nav.querySelectorAll('a').forEach(a => a.onclick = () => { nav.classList.remove('open'); burger.textContent = '☰'; });
+</script>
