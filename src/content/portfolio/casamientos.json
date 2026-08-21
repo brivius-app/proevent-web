@@ -1,7 +1,7 @@
 {
-  "title": "Casamiento",
-  "label": "Casamientos",
-  "slug": "casamientos",
+  "title": "Bodas",
+  "label": "Bodas",
+  "slug": "Bodas",
   "order": 1,
   "cover": "/assets/portfolio/casamientos/cover.webp",
   "gallery": [
