@@ -4,9 +4,21 @@
   "phoneDisplay": "+54 9 3442 646597",
   "email": "pro-eventconcepcion@hotmail.com",
   "stats": [
-    { "num": "+300", "label": "Eventos" },
-    { "num": "10", "label": "Años de experiencia" },
-    { "num": "100%", "label": "Equipamiento propio" },
-    { "num": "6", "label": "Tipos de evento" }
+    {
+      "num": "+300",
+      "label": "Eventos realizados"
+    },
+    {
+      "num": "18",
+      "label": "Años de experiencia"
+    },
+    {
+      "num": "100%",
+      "label": "Equipamiento propio"
+    },
+    {
+      "num": "6",
+      "label": "Tipos de evento"
+    }
   ]
 }
