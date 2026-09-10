@@ -2,6 +2,12 @@
 import { STATS } from '../lib/site';
 ---
 <section class="stats" id="nosotros">
+  <div class="about-intro reveal">
+    <div class="sec-tag">Nosotros</div>
+    <p>Somos una empresa joven, formada por personas apasionadas por los eventos y la tecnología. En Pro-Event nos dedicamos a crear y producir experiencias, combinando sonido, iluminación, pantallas LED y DJs para todo tipo de eventos.</p>
+    <p>Estar en cada detalle, entender lo que busca cada cliente y aportar nuestra experiencia es lo que nos caracteriza.</p>
+    <p class="about-lead">Porque para nosotros, un buen evento no solo se escucha y se ve: se vive.</p>
+  </div>
   <div class="stat-grid">
     {STATS.map((s) => (
       <div class="stat reveal"><div class="num">{s.num}</div><div class="lbl">{s.label}</div></div>
